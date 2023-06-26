@@ -66,7 +66,7 @@ func resourceDevice() *schema.Resource {
 				Description: "Settings overrides for specific switch ports.",
 				// TODO: this should really be a map or something when possible in the SDK
 				// see https://github.com/hashicorp/terraform-plugin-sdk/issues/62
-				Type:     schema.TypeSet,
+				Type:     schema.TypeList,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
