@@ -66,7 +66,7 @@ func resourceDevice() *schema.Resource {
 				Description: "Settings overrides for specific switch ports.",
 				// TODO: this should really be a map or something when possible in the SDK
 				// see https://github.com/hashicorp/terraform-plugin-sdk/issues/62
-				Type:     schema.TypeSet,
+				Type:     schema.TypeList,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
@@ -303,7 +303,7 @@ func resourceDeviceSetResourceData(resp *unifi.Device, d *schema.ResourceData, s
 }
 
 func resourceDeviceGetResourceData(d *schema.ResourceData) (*unifi.Device, error) {
-	pos, err := setToPortOverrides(d.Get("port_override").(*schema.Set))
+	pos, err := setToPortOverrides(d.Get("port_override").([]interface{}))
 	if err != nil {
 		return nil, fmt.Errorf("unable to process port_override block: %w", err)
 	}
@@ -317,10 +317,10 @@ func resourceDeviceGetResourceData(d *schema.ResourceData) (*unifi.Device, error
 	}, nil
 }
 
-func setToPortOverrides(set *schema.Set) ([]unifi.DevicePortOverrides, error) {
+func setToPortOverrides(set []interface{}) ([]unifi.DevicePortOverrides, error) {
 	// use a map here to remove any duplication
 	overrideMap := map[int]unifi.DevicePortOverrides{}
-	for _, item := range set.List() {
+	for _, item := range set {
 		data, ok := item.(map[string]interface{})
 		if !ok {
 			return nil, fmt.Errorf("unexpected data in block")
