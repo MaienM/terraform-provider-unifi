@@ -264,22 +264,21 @@ func TestAccDevice_switch_portOverrides(t *testing.T) {
 					testAccCheckDeviceExists(resourceName),
 					resource.TestCheckResourceAttr(resourceName, "port_override.#", "3"),
 
-					// TODO: Why are these out of order?
-					resource.TestCheckResourceAttr(resourceName, "port_override.0.number", "3"),
-					resource.TestCheckResourceAttr(resourceName, "port_override.0.name", ""),
+					resource.TestCheckResourceAttr(resourceName, "port_override.0.number", "1"),
+					resource.TestCheckResourceAttr(resourceName, "port_override.0.name", "Port 1"),
 					resource.TestCheckResourceAttr(resourceName, "port_override.0.port_profile_id", ""),
-					resource.TestCheckResourceAttr(resourceName, "port_override.0.op_mode", "aggregate"),
-					resource.TestCheckResourceAttr(resourceName, "port_override.0.aggregate_num_ports", "2"),
+					//resource.TestCheckResourceAttr(resourceName, "port_override.0.op_mode", "switch"),
 
-					resource.TestCheckResourceAttr(resourceName, "port_override.1.number", "1"),
-					resource.TestCheckResourceAttr(resourceName, "port_override.1.name", "Port 1"),
-					resource.TestCheckResourceAttr(resourceName, "port_override.1.port_profile_id", ""),
+					resource.TestCheckResourceAttr(resourceName, "port_override.1.number", "2"),
+					resource.TestCheckResourceAttr(resourceName, "port_override.1.name", "Port 2"),
+					//resource.TestCheckResourceAttr(resourceName, "port_override.1.port_profile_id", ""),
 					//resource.TestCheckResourceAttr(resourceName, "port_override.1.op_mode", "switch"),
 
-					resource.TestCheckResourceAttr(resourceName, "port_override.2.number", "2"),
-					resource.TestCheckResourceAttr(resourceName, "port_override.2.name", "Port 2"),
-					//resource.TestCheckResourceAttr(resourceName, "port_override.2.port_profile_id", ""),
-					//resource.TestCheckResourceAttr(resourceName, "port_override.2.op_mode", "switch"),
+					resource.TestCheckResourceAttr(resourceName, "port_override.2.number", "3"),
+					resource.TestCheckResourceAttr(resourceName, "port_override.2.name", ""),
+					resource.TestCheckResourceAttr(resourceName, "port_override.2.port_profile_id", ""),
+					resource.TestCheckResourceAttr(resourceName, "port_override.2.op_mode", "aggregate"),
+					resource.TestCheckResourceAttr(resourceName, "port_override.2.aggregate_num_ports", "2"),
 				),
 			},
 			{
