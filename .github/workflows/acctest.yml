@@ -6,8 +6,6 @@ on:
   push:
     paths-ignore:
       - "README.md"
-  schedule:
-    - cron: "0 13 * * *"
 jobs:
   test:
     name: Matrix Test
@@ -32,7 +30,6 @@ jobs:
         with:
           go-version-file: "go.mod"
           check-latest: true
-
       - name: TF acceptance tests
         timeout-minutes: 20
         run: make testacc UNIFI_STDOUT=true UNIFI_VERSION=${{ matrix.unifi_download_url && 'beta' || matrix.unifi_version }} UNIFI_DOWNLOAD_URL=${{ matrix.unifi_download_url }}
